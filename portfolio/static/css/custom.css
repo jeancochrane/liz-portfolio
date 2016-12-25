@@ -1,0 +1,103 @@
+/* Fix overlapping navbar */
+body {
+    padding-top: 100px;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    color: #4d4d4d;
+}
+
+p, a, a:visited {
+    font-family: 'Open Sans', sans-serif;
+    color: #4d4d4d;
+}
+
+.liz-name>a, .sidebar-select>span {
+    font-family: 'Montserrat', sans-serif;
+    color: #4d4d4d;
+}
+
+.work-content>p {
+    font-size: 1.2em;
+    font-weight: 300;
+}
+
+/* Pad the site title to the right */
+.liz-name {
+    padding: 0 20px;
+}
+
+.navbar-toggle {
+    margin-top: 23px;
+}
+
+a:hover, a:focus {
+    text-decoration: none;
+    color: #2a2a2a;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.border-left {
+    border-left: 1px solid #ddd;
+}
+
+.navbar-fixed-top {
+    padding-top: 30px;
+}
+
+/* fix header background color */
+.navbar-default {
+    background-color: #ffffff;
+}
+
+/* fix extra space below mobile nav */
+.navbar-nav {
+    margin: 0 -15px;
+}
+
+.liz-name:focus,
+.liz-name:hover {
+    text-decoration: none;
+    outline: 0;
+}
+.sidebar-select {
+    padding: 10px 15px;
+    position: relative;
+    display: block;
+    border-bottom: 1px solid #ddd;
+}
+
+.sidebar-select:focus,
+.sidebar-select:hover {
+    text-decoration: none;
+    background-color: #eee;
+    outline: 0;
+}
+
+.work-container {
+    border-left: 1px solid #ddd;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    height: 500px;
+    overflow: scroll;
+}
+
+.nav>.sidebar-select>.fa {
+    position: relative;
+    display: inline-block;
+    padding: 10px 15px;
+}
+
+.sidebar-select>span {
+    font-size: 1.5em;
+    padding-left: 5px;
+}
+
+.about {
+    background-color: #fff;
+}

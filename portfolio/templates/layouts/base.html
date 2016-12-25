@@ -1,0 +1,222 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>
+      {% if page.title %}{{ page.title }} -{% endif %} Liz Barr
+    </title>
+    <meta charset='utf-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% if page.description %}
+      <meta content="{{ page.description }}" name='description' />
+    {% else %}
+      <meta content="{{ SITE_DESCRIPTION }}" name='description' />
+    {% endif %}
+    <meta content='datamade.us' name='author' />
+
+    <!-- Facebook metadata -->
+    <meta content="{{ SITE_NAME }}" property="og:site_name">
+    {% if page.title %}
+      <meta content="{{ page.title }}" property="og:title">
+    {% else %}
+      <meta content="{{ SITE_NAME }}" property="og:title">
+    {% endif %}
+    {% if page.title %}
+      <meta content="article" property="og:type">
+    {% else %}
+      <meta content="website" property="og:type">
+    {% endif %}
+    {% if page.description %}
+      <meta content="{{ page.description }}" property="og:description">
+    {% else %}
+      <meta content="{{ SITE_DESCRIPTION }}" property="og:description">
+    {% endif %}
+    {% if request.get_full_path %}
+      <meta content="{{ request.get_full_path }}" property="og:url">
+    {% endif %}
+    {% if page.date %}
+      <meta content="{{ page.date }}" property="article:published_time">
+      <meta content="{{ site.url }}/about/" property="article:author">
+    {% endif %}
+    {% if page.image %}
+      <meta content="{{ site.url }}/{{ page.image }}" property="og:image">
+    {% else %}
+      <meta content="{{ site.url }}/images/#" property="og:image">
+    {% endif %}
+    {% if page.categories %}
+      {% for category in page.categories %}
+      <meta content="{{ category }}" property="article:section">
+      {% endfor %}
+    {% endif %}
+    {% if page.tags %}
+      {% for tag in page.tags %}
+      <meta content="{{ tag }}" property="article:tag">
+      {% endfor %}
+    {% endif %}
+
+    <!-- Twitter metadata -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@DataMadeCo">
+    <meta name="twitter:creator" content="@DataMadeCo">
+    {% if page.title %}
+      <meta name="twitter:title" content="{{ page.title }}">
+    {% else %}
+      <meta name="twitter:title" content="{{ SITE_NAME }}">
+    {% endif %}
+    {% if request.get_full_path %}
+      <meta name="twitter:url" content="{{ request.get_full_path }}">
+    {% endif %}
+    {% if page.description %}
+      <meta name="twitter:description" content="{{ page.description }}">
+    {% else %}
+      <meta name="twitter:description" content="{{ SITE_DESCRIPTION }}">
+    {% endif %}
+    {% if page.image %}
+      <meta name="twitter:image:src" content="{{ site.url }}/images/{{ page.image }}">
+    {% else %}
+      <meta name="twitter:image:src" content="{{ site.url }}/images/#">
+    {% endif %}
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+
+    <!-- Typeface -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans:300,400" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="/js/html5shiv.js"></script>
+      <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- JS libraries -->
+    <script src="{% static 'js/jquery-1.10.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  </head>
+  <body>
+    <!-- header -->
+    <header>
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-header col-sm-3 col-sm-offset-1">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div>
+            <h1 class="liz-name">
+              <a href="/">Liz Barr</a>
+            </h1>
+          </div>
+        </div>
+        <div class="collapse navbar-collapse" id="collapse">
+          <div class="nav navbar-nav visible-xs">
+            <a href="/about/">
+              <div class="sidebar-select about">
+                <i class="fa fa-lg fa-fw fa-question-circle"></i>
+                <span>About</span>
+              </div>
+            </a>
+            <a href="/work/design">
+              <div class="sidebar-select design">
+                <i class="fa fa-fw fa-lg fa-pencil"></i>
+                <span>Design</span>
+              </div>
+            </a>
+            <a href="/work/printmaking">
+              <div class="sidebar-select printmaking"> 
+                <i class="fa fa-lg fa-fw fa-book"></i>
+                <span>Printmaking</span>
+              </div>
+            </a>
+            <a href="/work/crafts_and_textiles">
+              <div class="sidebar-select crafts_and_textiles">
+                <i class="fa fa-lg fa-fw fa-scissors"></i>
+                <span>Crafts &amp; Textiles</span>
+              </div>
+            </a>
+            <a href="/work/photography">
+              <div class="sidebar-select photography"> 
+                <i class="fa fa-lg fa-fw fa-camera-retro"></i>
+                <span>Photography</span>
+              </div>
+            </a>
+            <a href="/contact/">
+              <div class="sidebar-select contact"> 
+                <i class="fa fa-lg fa-fw fa-paper-plane"></i>
+                <span>Contact</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- body -->
+    <div class="container-fluid">
+      <div class="row">
+        <!-- sidebar -->
+        <aside class="col-sm-3 col-sm-offset-1 hidden-xs">
+          <div class="collapse nav navbar-collapse" id="collapse">
+            <a href="/about/">
+              <div class="sidebar-select about">
+                <i class="fa fa-lg fa-fw fa-question-circle"></i>
+                <span>About</span>
+              </div>
+            </a>
+            <a href="/work/design">
+              <div class="sidebar-select design">
+                <i class="fa fa-fw fa-lg fa-pencil"></i>
+                <span>Design</span>
+              </div>
+            </a>
+            <a href="/work/printmaking">
+              <div class="sidebar-select printmaking"> 
+                <i class="fa fa-lg fa-fw fa-book"></i>
+                <span>Printmaking</span>
+              </div>
+            </a>
+            <a href="/work/crafts_and_textiles">
+              <div class="sidebar-select crafts_and_textiles">
+                <i class="fa fa-lg fa-fw fa-scissors"></i>
+                <span>Crafts &amp; Textiles</span>
+              </div>
+            </a>
+            <a href="/work/photography">
+              <div class="sidebar-select photography"> 
+                <i class="fa fa-lg fa-fw fa-camera-retro"></i>
+                <span>Photography</span>
+              </div>
+            </a>
+            <a href="/contact/">
+              <div class="sidebar-select contact"> 
+                <i class="fa fa-lg fa-fw fa-paper-plane"></i>
+                <span>Contact</span>
+              </div>
+            </a>
+          </div>
+        </aside>
+        <!-- content -->
+        <div class="col-xs-12 col-sm-7 col-lg-6 work-container">
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<script>
+$(function() {
+    /* Make sure the content is the only scrollable element */
+    $(window).resize(function () {
+        var h = $(window).height(),
+          offsetTop = 100; // Calculate the top offset
+        $('.work-container').css('height', (h - offsetTop));
+    }).resize();
+});
+</script>
+{% block extra-js %}{% endblock %}

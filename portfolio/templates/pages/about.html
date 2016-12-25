@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="work-content">
+        <img src="{{ featured_image.url }}" style="max-width:100%;"></img>
+        <br />
+        <br />
+        <p>{{ bio|linebreaks }}</p>
+    </div>
+{% endblock %}
+
+{% block extra-js %}
+<script>
+    $(function() {
+        /* Set the current nav tab as 'selected' */
+        $('.sidebar-select').removeAttr('style'); // reset all navs
+        $('.about').css('background-color', '#e6e6e6'); // select the current nav
+    });
+</script>
+{% endblock %}
