@@ -54,4 +54,6 @@ db.sqlite3
 liz-venv
 
 # Sphinx documentation
-docs/_build/
+docs/_build//keyrings/live/pubring.gpg~
+/keyrings/live/pubring.kbx~
+/keyrings/live/secring.gpg
