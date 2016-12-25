@@ -1,1 +1,1 @@
-portfolio/settings.py
+configs/settings.py
