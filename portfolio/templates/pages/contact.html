@@ -1,2 +1,23 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block content %}
+    <div class="work-content">
+        <div class="visible-xs">
+            <h3 class="text-center">Contact</h3>
+            <br />
+        </div>
+        <p>For commissions or professional questions, send Liz an email at <a href="mailto:liz@liz-barr.com"><strong>liz@liz-barr.com</strong></a>.</p>
+        <p>For everything else, DM her on Instagram at <a href="https://www.instagram.com/lizbarrrr/"><strong>@lizbarrrr</strong></a>.
+    </div>
+{% endblock %}
+
+{% block extra-js %}
+<script>
+    $(function() {
+        /* Set the current nav tab as 'selected' */
+        $('.sidebar-select').removeAttr('style'); // reset all navs
+        $('.contact').css('background-color', '#e6e6e6'); // select the current nav
+    });
+</script>
+{% endblock %}
