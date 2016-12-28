@@ -3,7 +3,14 @@
 
 {% block content %}
     <div class="work-content">
-        <h3>Recent work</h3>
+        <h2 class="hidden-xs text-center">Recent work</h2>
+        <h3 class="visible-xs text-center">Recent work</h3>
         <br />
+        {% for work in works %}
+        <img src="{{ work.media_file.url }}" class="img-responsive center-block"></img>
+        <br />
+        <p class="text-center">"{{ work.title }}", {{ work.materials }}, {{ work.year }}</p>
+        <hr />
+        {% endfor %}
     </div>
 {% endblock %}

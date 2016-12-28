@@ -8,6 +8,20 @@ from portfolio.models import Category, Work, About
 
 def home(request):
     context = {}
+
+    try:
+        works = Work.objects.all().order_by('-created_date')[:5]
+    except IndexError:
+        count = Work.objects.all().count()
+        works_remaining = 5 - count
+        raise Http404('Less than 5 artworks found. Upload {0} more.'.format(
+                      works_remaining)
+                      )
+    except Work.DoesNotExist:
+        raise Http404("""No artworks found.
+                         Upload at least 5 images to display the homepage.""")
+
+    context['works'] = works
     return render(request, 'index.html', context)
 
 
@@ -46,7 +60,7 @@ def work(request, category):
         'page': {
             'title': category_obj.name
         },
-        'category': category
+        'category': category_obj
     }
 
     # Query DB for works corresponding to $category
