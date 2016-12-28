@@ -45,7 +45,8 @@ def work(request, category):
     context = {
         'page': {
             'title': category_obj.name
-        }
+        },
+        'category': category
     }
 
     # Query DB for works corresponding to $category
@@ -55,4 +56,4 @@ def work(request, category):
     except Work.DoesNotExist:
         raise Http404("No works found in the category '%s'" % category)
 
-    return(request, 'work.html', context)
+    return render(request, 'work.html', context)

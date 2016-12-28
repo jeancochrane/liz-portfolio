@@ -32,7 +32,7 @@ class Category(models.Model):
         return self.name
 
 
-def filepath(self, instance, filename):
+def filepath(instance, filename):
     """
     Callable that returns a filepath for an uploaded image.
     """
@@ -47,7 +47,9 @@ class Work(models.Model):
     title = models.CharField(max_length=250)
     materials = models.CharField(max_length=250)
     year = models.IntegerField()
-    statement = models.TextField()
+    statement = models.TextField(
+        blank=True
+    )
     category = models.ForeignKey(
         'Category',
         on_delete=models.CASCADE
@@ -59,5 +61,4 @@ class Work(models.Model):
     )
 
     def __str__(self):
-        return ('"{0}," {1}, {3}'.format(self.title, self.materials,
-                                         self.year))
+        return self.title

@@ -2,9 +2,28 @@
 {% load static %}
 
 {% block content %}
-    
-    {% for work in works %}
+    <div class="work-content">
+        {% for work in works %}
+        <img src="{{ work.media_file.url }}" class="img-responsive center-block"></img>
+        <br />
+        <p class="text-center">"{{ work.title }}", {{ work.materials }}, {{ work.year }}</p>
+        {% if work.statement %}
+        <p class="text-center">{{ work.statement|linebreaks }}</p>
+        {% endif %}
+        <hr />
+        {% endfor %}
+    </div>
 
-    {% endfor %}
+<div id="which-tab-selected" data-category="{{ category }}"></div>
+{% endblock %}
 
+{% block extra-js %}
+<script>
+    $(function() {
+        /* Set the current nav tab as 'selected' */
+        var category = $('#which-tab-selected').attr('data-category')
+        $('.sidebar-select').removeAttr('style'); // reset all navs
+        $('.' + category).css('background-color', '#e6e6e6'); // select the current nav
+    });
+</script>
 {% endblock %}
