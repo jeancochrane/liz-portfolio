@@ -1,4 +1,5 @@
 from django.contrib.admin import AdminSite
+from django.contrib import admin
 
 from .models import Category, Work, About
 
@@ -9,8 +10,11 @@ class LizAdmin(AdminSite):
     index_title = "Edit portfolio"
 
 
+class WorkAdmin(admin.ModelAdmin):
+    list_filter = ('category',)
+
 admin_site = LizAdmin()
 
 admin_site.register(Category)
-admin_site.register(Work)
+admin_site.register(Work, WorkAdmin)
 admin_site.register(About)

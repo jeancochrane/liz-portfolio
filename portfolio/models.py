@@ -65,7 +65,9 @@ class Work(models.Model):
         upload_to=filepath,
         verbose_name='Upload a file'
     )
-    featured = models.BooleanField(default=False)
+    featured = models.BooleanField(
+        default=False,
+        verbose_name='Include this work on the front page')
 
     def __str__(self):
         return self.title
