@@ -98,6 +98,11 @@ a:hover, a:focus {
     padding-left: 5px;
 }
 
-.about {
-    background-color: #fff;
+.logout {
+    background-color: #ffd497;
+}
+
+.logout:hover,
+.logout:focus {
+    background-color: #ffb347;
 }

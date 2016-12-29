@@ -12,7 +12,7 @@
         <h3 class="visible-xs text-center">Featured work</h3>
         <br />
         {% if user.is_staff %}
-        <a href="/admin/portfolio/work/" class="text-center">
+        <a href="admin/portfolio/work/?featured__exact=1" class="text-center">
             <p class="text-center">
                 <i class="fa fa-fw fa-pencil text-center"></i>
                 <strong>Edit featured images</strong>

@@ -65,9 +65,14 @@ class Work(models.Model):
         upload_to=filepath,
         verbose_name='Upload a file'
     )
+    order = models.IntegerField(
+        verbose_name='Position on the category page',
+        default=1
+    )
     featured = models.BooleanField(
         default=False,
-        verbose_name='Include this work on the front page')
+        verbose_name='featured image')
+
 
     def __str__(self):
         return self.title

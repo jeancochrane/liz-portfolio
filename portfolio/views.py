@@ -11,12 +11,6 @@ def home(request):
 
     try:
         works = Work.objects.filter(featured=True).order_by('-created_date')
-    except IndexError:
-        count = Work.objects.all().count()
-        works_remaining = 5 - count
-        raise Http404('Less than 5 artworks found. Upload {0} more.'.format(
-                      works_remaining)
-                      )
     except Work.DoesNotExist:
         raise Http404("""No featured artworks found.
                          Select an artwork to feature on the admin page.""")
@@ -65,7 +59,7 @@ def work(request, category):
 
     # Query DB for works corresponding to $category
     try:
-        works = Work.objects.filter(category=category_obj).order_by('-created_date')
+        works = Work.objects.filter(category=category_obj).order_by('order')
         context['works'] = works
     except Work.DoesNotExist:
         raise Http404("No works found in the category '%s'" % category)
