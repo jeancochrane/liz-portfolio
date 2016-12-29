@@ -8,6 +8,13 @@
             <br />
         </div>
         {% for work in works %}
+        {% if user.is_staff %}
+        <a href="/admin/portfolio/work/{{ work.pk }}/change/">
+            <i class="fa fa-fw fa-pencil"></i>
+            <strong>Edit this work</strong>
+        </a>
+        <br />
+        {% endif %}
         <img src="{{ work.media_file.url }}" class="img-responsive center-block"></img>
         <br />
         <p class="text-center">"{{ work.title }}", {{ work.materials }}, {{ work.year }}</p>

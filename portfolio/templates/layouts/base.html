@@ -199,6 +199,14 @@
                 <span>Contact</span>
               </div>
             </a>
+            {% if user.is_staff %}
+            <a href="/admin/logout/">
+              <div class="sidebar-select logout">
+                <i class="fa fa-lg fa-fw fa-arrow"></i>
+                <span>Log out</span>
+              </div>
+            </a>
+            {% endif %}
           </div>
         </aside>
         <!-- content -->
