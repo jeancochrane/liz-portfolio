@@ -14,6 +14,9 @@ class About(models.Model):
     )
     bio = models.TextField()
 
+    class Meta:
+        verbose_name_plural = "about page"
+
     def __str__(self):
         return self.name
 
@@ -27,6 +30,9 @@ class Category(models.Model):
     # `slug` defines the text that will represent the category in a URL path.
     # Should be short, lowercase, and contain no spaces.
     slug = models.SlugField()
+
+    class Meta:
+        verbose_name_plural = "categories"
 
     def __str__(self):
         return self.name
