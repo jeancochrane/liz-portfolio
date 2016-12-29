@@ -59,6 +59,7 @@ class Work(models.Model):
         upload_to=filepath,
         verbose_name='Upload a file'
     )
+    featured = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title

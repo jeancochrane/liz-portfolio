@@ -3,9 +3,23 @@
 
 {% block content %}
     <div class="work-content">
-        <h2 class="hidden-xs text-center">Recent work</h2>
-        <h3 class="visible-xs text-center">Recent work</h3>
+        <p>Liz Barr is an interdisciplinary artist living and working in Philadelphia, PA. 
+            <a href="/about/">
+                <strong>Read&nbsp;more&nbsp;<i class="fa fa-fw fa-arrow-right"></i></strong>
+            </a>
+        </p>
+        <h2 class="hidden-xs text-center">Featured work</h2>
+        <h3 class="visible-xs text-center">Featured work</h3>
         <br />
+        {% if user.is_staff %}
+        <a href="/admin/portfolio/work/" class="text-center">
+            <p class="text-center">
+                <i class="fa fa-fw fa-pencil text-center"></i>
+                <strong>Edit featured images</strong>
+            </p>
+        </a>
+        <br />
+        {% endif %}
         {% for work in works %}
         <img src="{{ work.media_file.url }}" class="img-responsive center-block"></img>
         <br />

@@ -10,7 +10,7 @@ def home(request):
     context = {}
 
     try:
-        works = Work.objects.all().order_by('-created_date')[:5]
+        works = Work.objects.filter(featured=True).order_by('-created_date')
     except IndexError:
         count = Work.objects.all().count()
         works_remaining = 5 - count
@@ -18,8 +18,8 @@ def home(request):
                       works_remaining)
                       )
     except Work.DoesNotExist:
-        raise Http404("""No artworks found.
-                         Upload at least 5 images to display the homepage.""")
+        raise Http404("""No featured artworks found.
+                         Select an artwork to feature on the admin page.""")
 
     context['works'] = works
     return render(request, 'index.html', context)
