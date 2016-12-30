@@ -47,6 +47,7 @@ coverage.xml
 *.log
 *.pot
 settings.py
+settings_production.py
 secrets.py
 db.sqlite3
 
@@ -58,3 +59,4 @@ docs/_build//keyrings/live/pubring.gpg~
 /keyrings/live/pubring.kbx~
 /keyrings/live/secring.gpg
 /portfolio/settings.py
+/configs/settings_production.py
