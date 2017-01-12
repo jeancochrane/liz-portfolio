@@ -10,12 +10,12 @@ def home(request):
     context = {}
 
     try:
-        works = Work.objects.filter(featured=True).order_by('-created_date')
+        projects = Project.objects.filter(featured=True).order_by('-created_date')
     except Work.DoesNotExist:
-        raise Http404("""No featured artworks found.
-                         Select an artwork to feature on the admin page.""")
+        raise Http404("""No featured projects found.
+                         Select a project to feature on the admin page.""")
 
-    context['works'] = works
+    context['work'] = projects
     return render(request, 'index.html', context)
 
 
@@ -25,12 +25,12 @@ def about(request):
             'title': 'About'
         }
     }
-    info = About.objects.last()
+    about = About.objects.last()
 
-    context["bio"] = info.bio
+    context["bio"] = about.bio
 
     # media file for development
-    context["featured_image"] = info.featured_image
+    context["featured_image"] = about.featured_image
 
     return render(request, 'about.html', context)
 
@@ -40,15 +40,29 @@ def contact(request):
             'title': 'Contact'
         }
     }
+    contact = Contact.objects.last()
+
+    if contact.featured_image:
+        context["featured_image"] = contact.featured_image
+
+    context["text"] = contact.text
 
     return render(request, 'contact.html', context)
 
-def work(request, category):
+def work(request, prj):
     # Get the appropriate category object from the DB
     try:
-        category_obj = Category.objects.get(slug=category)
-    except Category.DoesNotExist:
-        raise Http404("No categories found with the slug '%s'" % category)
+        project = Project.objects.get(slug=prj)
+    except Project.DoesNotExist:
+        raise Http404("No projects found with the slug '%s'" % prj)
+
+    # Query DB for works corresponding to $project
+    try:
+        works = Work.objects.filter(project=project)
+        context['works'] = works
+
+    except Work.DoesNotExist:
+        raise Http404("No works found in the category '%s'" % prj)
 
     context = {
         'page': {
@@ -56,12 +70,5 @@ def work(request, category):
         },
         'category': category_obj
     }
-
-    # Query DB for works corresponding to $category
-    try:
-        works = Work.objects.filter(category=category_obj).order_by('order')
-        context['works'] = works
-    except Work.DoesNotExist:
-        raise Http404("No works found in the category '%s'" % category)
 
     return render(request, 'work.html', context)

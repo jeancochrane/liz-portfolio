@@ -7,8 +7,16 @@
             <h3 class="text-center">Contact</h3>
             <br />
         </div>
-        <p>For commissions or professional questions, send Liz an email at <a href="mailto:liz@liz-barr.com"><strong>liz@liz&#8209;barr.com</strong></a>.</p>
-        <p>For everything else, DM her on Instagram at <a href="https://www.instagram.com/lizbarrrr/"><strong>@lizbarrrr</strong></a>.
+        {% if featured_image %}
+        <img src="{{ featured_image.url }}" style="max-width:100%;"></img>
+        <br />
+        <br />
+        {% endif %}
+        <p>
+            {{ text|linebreaks|raw }}<!-- TO DO: figure out the right sytnax for "raw" filter -->
+        </p>
+        <!-- <p>For commissions or professional questions, send Liz an email at <a href="mailto:liz@liz-barr.com"><strong>liz@liz&#8209;barr.com</strong></a>.</p>
+        <p>For everything else, DM her on Instagram at <a href="https://www.instagram.com/lizbarrrr/"><strong>@lizbarrrr</strong></a>. -->
     </div>
 {% endblock %}
 
