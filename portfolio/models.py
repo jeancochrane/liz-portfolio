@@ -21,9 +21,29 @@ class About(models.Model):
         return self.name
 
 
+class Contact(models.Model):
+    """
+    Model to represent Liz's contact page.
+    """
+    name = "Contact"
+    site = models.OneToOneField(Site)  # Can only be one
+    featured_image = models.FileField(
+        upload_to='about/'
+    )
+    text = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "contact page"
+
+    def __str__(self):
+        return self.name
+
+
 class Category(models.Model):
     """
-    Model to represent a category of artwork in the DB.
+    Model to represent a category of work in the DB.
+
+    Parent model for uploaded work.
     """
     name = models.CharField(max_length=250)
 
@@ -38,17 +58,11 @@ class Category(models.Model):
         return self.name
 
 
-def filepath(instance, filename):
+class Project(models.Model):
     """
-    Callable that returns a filepath for an uploaded image.
-    """
-    # file will be uploaded to MEDIA_ROOT/<category>/<filename>
-    return '{0}/{1}'.format(instance.category.slug, filename)
+    Model to represent a project (series of artworks) in the DB.
 
-
-class Work(models.Model):
-    """
-    Model to represent an artwork in the DB.
+    Child of Category; parent of Work.
     """
     title = models.CharField(max_length=250)
     materials = models.CharField(max_length=250)
@@ -61,18 +75,43 @@ class Work(models.Model):
         on_delete=models.CASCADE
     )
     created_date = models.DateTimeField(default=timezone.now)
+    featured = models.BooleanField(
+        default=False,
+        verbose_name='feature image on the home page')
+
+
+def filepath(instance, filename):
+    """
+    Callable that returns a filepath for an uploaded image.
+    """
+    # file will be uploaded to MEDIA_ROOT/<category>/<filename>
+    return '{0}/{1}'.format(instance.category.slug, filename)
+
+
+class Work(models.Model):
+    """
+    Model to represent an artwork in the DB.
+
+    Child of Project.
+    """
+    title = models.CharField(max_length=250)
+    alt_text = models.CharField(max_length=250)
+    project = models.ForeignKey(
+        'Project',
+        on_delete=models.CASCADE
+    )
+    created_date = models.DateTimeField(default=timezone.now)
     media_file = models.FileField(
         upload_to=filepath,
-        verbose_name='Upload a file'
+        verbose_name='upload a file'
     )
     order = models.IntegerField(
-        verbose_name='Position on the category page',
+        verbose_name='position on the category page',
         default=1
     )
     featured = models.BooleanField(
         default=False,
-        verbose_name='featured image')
-
+        verbose_name='feature image on the project page')
 
     def __str__(self):
         return self.title
