@@ -1,7 +1,7 @@
 from django.contrib.admin import AdminSite
 from django.contrib import admin
 
-from .models import Category, Work, About
+from .models import Category, Work, About, Contact, Project
 
 
 class LizAdmin(AdminSite):
@@ -13,10 +13,12 @@ class LizAdmin(AdminSite):
 class WorkAdmin(admin.ModelAdmin):
     list_display = ('title', 'order')
     list_editable = ('order',)
-    list_filter = ('category', 'featured')
+    list_filter = ('project', 'featured')
 
 admin_site = LizAdmin()
 
 admin_site.register(Category)
 admin_site.register(Work, WorkAdmin)
+admin_site.register(Project)
 admin_site.register(About)
+admin_site.register(Contact)
