@@ -163,12 +163,31 @@
         <!-- sidebar -->
         <aside class="col-sm-3 col-sm-offset-1 hidden-xs">
           <div class="collapse nav navbar-collapse" id="collapse">
-            <a href="/about/">
-              <div class="sidebar-select about">
-                <i class="fa fa-lg fa-fw fa-question-circle"></i>
-                <span>About</span>
+            <div role="tablist" id="about-title">
+              <a role="button" data-toggle="collapse" data-parent="#about" href="#about-content">
+                <div class="sidebar-select about">
+                  <i class="fa fa-lg fa-fw fa-question-circle"></i>
+                  <span>About</span>
+                </div>
+              </a>
+              <div id="about-content" class="panel-collapse collapse" role="tabpanel">
+                <a href="{% url 'about' %}">
+                  <div class="panel-body sidebar-child" id="about-liz">
+                    <span>About Liz</span>
+                  </div>
+                </a>
+                <a href="{% url 'exhibitions' %}">
+                  <div class="panel-body sidebar-child" id="exhibitions">
+                    <span>Exhibitions</span>
+                  </div>
+                </a>
+                <a href="{% url 'contact' %}">
+                  <div class="panel-body sidebar-child" id="contact">
+                    <span>Contact</span>
+                  </div>
+                </a>
               </div>
-            </a>
+            </div>
             <a href="/work/design">
               <div class="sidebar-select design">
                 <i class="fa fa-fw fa-lg fa-pencil"></i>

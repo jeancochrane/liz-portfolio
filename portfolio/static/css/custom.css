@@ -9,7 +9,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #4d4d4d;
 }
 
-p, a, a:visited {
+p, a, a:visited, span {
     font-family: 'Open Sans', sans-serif;
     color: #4d4d4d;
 }
@@ -72,8 +72,16 @@ a:hover, a:focus {
     border-bottom: 1px solid #ddd;
 }
 
+.sidebar-child {
+    padding: 10px 15px;
+    margin-left: 33px;
+    border-bottom: 1px solid #ddd
+}
+
 .sidebar-select:focus,
-.sidebar-select:hover {
+.sidebar-select:hover,
+.sidebar-child:focus,
+.sidebar-child:hover {
     text-decoration: none;
     background-color: #eee;
     outline: 0;

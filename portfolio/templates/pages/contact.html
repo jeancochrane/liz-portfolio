@@ -13,7 +13,7 @@
         <br />
         {% endif %}
         <p>
-            {{ text|linebreaks|raw }}<!-- TO DO: figure out the right sytnax for "raw" filter -->
+            {{ text|linebreaks|safe }}<!-- TO DO: figure out the right sytnax for "raw" filter -->
         </p>
         <!-- <p>For commissions or professional questions, send Liz an email at <a href="mailto:liz@liz-barr.com"><strong>liz@liz&#8209;barr.com</strong></a>.</p>
         <p>For everything else, DM her on Instagram at <a href="https://www.instagram.com/lizbarrrr/"><strong>@lizbarrrr</strong></a>. -->
@@ -25,7 +25,8 @@
     $(function() {
         /* Set the current nav tab as 'selected' */
         $('.sidebar-select').removeAttr('style'); // reset all navs
-        $('.contact').css('background-color', '#e6e6e6'); // select the current nav
+        $('#contact').css('background-color', '#e6e6e6'); // select the current nav
+        $('#about-content').toggleClass('in');
     });
 </script>
 {% endblock %}

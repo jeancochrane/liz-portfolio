@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.conf import settings
 from django.contrib.sites.models import Site
 
-from portfolio.models import Category, Work, About
+from portfolio.models import Category, Work, Project, About, Contact
 
 
 def home(request):
@@ -34,6 +34,7 @@ def about(request):
 
     return render(request, 'about.html', context)
 
+
 def contact(request):
     context = {
         'page': {
@@ -49,6 +50,7 @@ def contact(request):
 
     return render(request, 'contact.html', context)
 
+
 def work(request, prj):
     # Get the appropriate category object from the DB
     try:
@@ -62,7 +64,7 @@ def work(request, prj):
         context['works'] = works
 
     except Work.DoesNotExist:
-        raise Http404("No works found in the category '%s'" % prj)
+        raise Http404("No works found in the project '%s'" % prj)
 
     context = {
         'page': {
@@ -72,3 +74,15 @@ def work(request, prj):
     }
 
     return render(request, 'work.html', context)
+
+
+def exhibitions(request):
+    context = {
+        'page': {
+            'title': 'Exhibitions'
+        }
+    }
+
+    # TO DO: define context for exhibition page
+
+    return render(request, 'exhibitions.html', context)

@@ -4,13 +4,14 @@
 {% block content %}
     <div class="work-content">
         <div class="visible-xs">
-            <h3 class="text-center">About</h3>
+            <h3 class="text-center">Exhibitions and Press</h3>
             <br />
         </div>
+        {% if featured_image %}
         <img src="{{ featured_image.url }}" style="max-width:100%;"></img>
         <br />
         <br />
-        <p>{{ bio|linebreaks }}</p>
+        {% endif %}
     </div>
 {% endblock %}
 
@@ -19,7 +20,7 @@
     $(function() {
         /* Set the current nav tab as 'selected' */
         $('.sidebar-select').removeAttr('style'); // reset all navs
-        $('#about-liz').css('background-color', '#e6e6e6'); // select the current nav
+        $('#exhibitions').css('background-color', '#e6e6e6'); // select the current nav
         $('#about-content').toggleClass('in');
     });
 </script>
