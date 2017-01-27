@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.text import slugify
 from django.contrib.sites.models import Site
 
 
@@ -39,6 +40,24 @@ class Contact(models.Model):
         return self.name
 
 
+class Exhibitions(models.Model):
+    """
+    Model to represent Liz's exhibitions page.
+    """
+    name = "Exhibitions"
+    site = models.OneToOneField(Site)  # Can only be one
+    featured_image = models.FileField(
+        upload_to='exhibitions/'
+    )
+    text = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "exhibitions page"
+
+    def __str__(self):
+        return self.name
+
+
 class Category(models.Model):
     """
     Model to represent a category of work in the DB.
@@ -58,6 +77,14 @@ class Category(models.Model):
         return self.name
 
 
+def filepath(instance, filename):
+    """
+    Callable that returns a filepath for an uploaded image.
+    """
+    # file will be uploaded to MEDIA_ROOT/<category>/<filename>
+    return '{0}/{1}'.format(instance.category.slug, filename)
+
+
 class Project(models.Model):
     """
     Model to represent a project (series of artworks) in the DB.
@@ -65,6 +92,8 @@ class Project(models.Model):
     Child of Category; parent of Work.
     """
     title = models.CharField(max_length=250)
+    # TO DO: Figure out how to remove `slug` from the admin page
+    slug = models.SlugField()
     materials = models.CharField(max_length=250)
     year = models.IntegerField()
     statement = models.TextField(
@@ -77,15 +106,17 @@ class Project(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     featured = models.BooleanField(
         default=False,
-        verbose_name='feature image on the home page')
+        verbose_name='feature this project on the home page')
+    project_image = models.FileField(
+        upload_to=filepath,
+        verbose_name='upload a file')
 
+    def __str__(self):
+        return self.title
 
-def filepath(instance, filename):
-    """
-    Callable that returns a filepath for an uploaded image.
-    """
-    # file will be uploaded to MEDIA_ROOT/<category>/<filename>
-    return '{0}/{1}'.format(instance.category.slug, filename)
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Project, self).save(*args, **kwargs)
 
 
 class Work(models.Model):
@@ -101,7 +132,7 @@ class Work(models.Model):
         on_delete=models.CASCADE
     )
     created_date = models.DateTimeField(default=timezone.now)
-    media_file = models.FileField(
+    work_image = models.FileField(
         upload_to=filepath,
         verbose_name='upload a file'
     )

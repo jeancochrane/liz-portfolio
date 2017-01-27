@@ -164,7 +164,7 @@
         <aside class="col-sm-3 col-sm-offset-1 hidden-xs">
           <div class="collapse nav navbar-collapse" id="collapse">
             <div role="tablist" id="about-title">
-              <a role="button" data-toggle="collapse" data-parent="#about" href="#about-content">
+              <a role="button" data-toggle="collapse" href="#about-content">
                 <div class="sidebar-select about">
                   <i class="fa fa-lg fa-fw fa-question-circle"></i>
                   <span>About</span>
@@ -188,36 +188,66 @@
                 </a>
               </div>
             </div>
-            <a href="/work/design">
+            <a role="button" data-toggle="collapse" href="#design-content">
               <div class="sidebar-select design">
                 <i class="fa fa-fw fa-lg fa-pencil"></i>
                 <span>Design</span>
               </div>
             </a>
-            <a href="/work/printmaking">
-              <div class="sidebar-select printmaking"> 
+            <div id="design-content" class="panel-collapse collapse" role="tabpanel">
+              {% for project in projects.design %}
+              <a href="work/{{project.slug}}">
+                <div class="panel-body sidebar-child">
+                  <span>"{{project.title}}", {{project.materials}}, {{project.year}}</span>
+                </div>
+              </a>
+              {% endfor %}
+            </div>
+            <a role="button" data-toggle="collase" href="#zines-content">
+              <div class="sidebar-select zines"> 
                 <i class="fa fa-lg fa-fw fa-book"></i>
-                <span>Printmaking</span>
+                <span>Zines</span>
               </div>
             </a>
-            <a href="/work/crafts_and_textiles">
-              <div class="sidebar-select crafts_and_textiles">
+            <div id="zines-content" class="panel-collapse collapse" role="tabpanel">
+              {% for project in projects.zines %}
+              <a href="work/{{project.slug}}">
+                <div class="panel-body sidebar-child">
+                  <span>"{{project.title}}", {{project.materials}}, {{project.year}}</span>
+                </div>
+              </a>
+              {% endfor %}
+            </div>
+            <a role="button" data-toggle="collapse" href="#bodies-content">
+              <div class="sidebar-select bodies">
                 <i class="fa fa-lg fa-fw fa-scissors"></i>
-                <span>Crafts &amp; Textiles</span>
+                <span>Bodies</span>
               </div>
             </a>
-            <a href="/work/photography">
-              <div class="sidebar-select photography"> 
+            <div id="bodies-content" class="panel-collapse collapse" role="tabpanel">
+              {% for project in projects.bodies %}
+              <a href="work/{{project.slug}}">
+                <div class="panel-body sidebar-child">
+                  <span>"{{project.title}}", {{project.materials}}, {{project.year}}</span>
+                </div>
+              </a>
+              {% endfor %}
+            </div>
+            <a role="button" data-toggle="collapse" href="#screens-content">
+              <div class="sidebar-select screens"> 
                 <i class="fa fa-lg fa-fw fa-camera-retro"></i>
-                <span>Photography</span>
+                <span>Screens</span>
               </div>
             </a>
-            <a href="/contact/">
-              <div class="sidebar-select contact"> 
-                <i class="fa fa-lg fa-fw fa-paper-plane"></i>
-                <span>Contact</span>
-              </div>
-            </a>
+            <div id="screens-content" class="panel-collapse collapse" role="tabpanel">
+              {% for project in projects.screens %}
+              <a href="work/{{project.slug}}">
+                <div class="panel-body sidebar-child">
+                  <span>"{{project.title}}", {{project.materials}}, {{project.year}}</span>
+                </div>
+              </a>
+              {% endfor %}
+            </div>
             {% if user.is_staff %}
             <a href="/admin/logout/">
               <div class="sidebar-select logout">

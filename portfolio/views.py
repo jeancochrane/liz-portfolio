@@ -3,19 +3,34 @@ from django.shortcuts import render
 from django.conf import settings
 from django.contrib.sites.models import Site
 
-from portfolio.models import Category, Work, Project, About, Contact
+from portfolio.models import Category, Project, About, Contact, Work, Exhibitions
 
 
 def home(request):
-    context = {}
+    context = {
+        'projects': {}
+    }
 
+    # query projects for the featured section
     try:
-        projects = Project.objects.filter(featured=True).order_by('-created_date')
-    except Work.DoesNotExist:
+        featured_projects = Project.objects.filter(featured=True).order_by('-created_date')
+    except Project.DoesNotExist:
         raise Http404("""No featured projects found.
                          Select a project to feature on the admin page.""")
 
-    context['work'] = projects
+    context['featured_projects'] = featured_projects
+
+    # query projects for the sidebar categories
+    sidebar_categories = [category for category in Category.objects.all()]
+    print(sidebar_categories)
+    # sidebar_categories = ['design', 'zines', 'bodies', 'screens']
+
+    for category in sidebar_categories:
+        try:
+            context['projects'][category.slug] = Project.objects.filter(category=category).order_by('-created_date')
+        except Project.DoesNotExist:
+            continue
+
     return render(request, 'index.html', context)
 
 
@@ -51,8 +66,24 @@ def contact(request):
     return render(request, 'contact.html', context)
 
 
+def exhibitions(request):
+    context = {
+        'page': {
+            'title': 'Exhibitions'
+        }
+    }
+    exhibitions = Exhibitions.objects.last()
+
+    if exhibitions.featured_image:
+        context["featured_image"] = exhibitions.featured_image
+
+    context["text"] = exhibitions.text
+
+    return render(request, 'exhibitions.html', context)
+
+
 def work(request, prj):
-    # Get the appropriate category object from the DB
+    # Get the appropriate project object from the DB
     try:
         project = Project.objects.get(slug=prj)
     except Project.DoesNotExist:
@@ -74,15 +105,3 @@ def work(request, prj):
     }
 
     return render(request, 'work.html', context)
-
-
-def exhibitions(request):
-    context = {
-        'page': {
-            'title': 'Exhibitions'
-        }
-    }
-
-    # TO DO: define context for exhibition page
-
-    return render(request, 'exhibitions.html', context)

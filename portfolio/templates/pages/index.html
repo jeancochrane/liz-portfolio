@@ -20,10 +20,12 @@
         </a>
         <br />
         {% endif %}
-        {% for work in works %}
-        <img src="{{ work.media_file.url }}" class="img-responsive center-block"></img>
+        {% for project in featured_projects %}
+        <img src="{{ project.featured.media_file.url }}" class="img-responsive center-block"></img>
         <br />
-        <p class="text-center">"{{ work.title }}", {{ work.materials }}, {{ work.year }}</p>
+        <a href="/work/{{project.slug}}">
+            <p class="text-center">"{{ project.title }}", {{ project.materials }}, {{ project.year }}</p>
+        </a>
         <hr />
         {% endfor %}
     </div>

@@ -1,7 +1,7 @@
 from django.contrib.admin import AdminSite
 from django.contrib import admin
 
-from .models import Category, Work, About, Contact, Project
+from .models import Category, About, Project, Contact, Work, Exhibitions
 
 
 class LizAdmin(AdminSite):
@@ -18,7 +18,8 @@ class WorkAdmin(admin.ModelAdmin):
 admin_site = LizAdmin()
 
 admin_site.register(Category)
-admin_site.register(Work, WorkAdmin)
 admin_site.register(Project)
 admin_site.register(About)
 admin_site.register(Contact)
+admin_site.register(Exhibitions)
+admin_site.register(Work, WorkAdmin)
