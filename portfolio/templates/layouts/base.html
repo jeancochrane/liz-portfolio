@@ -116,44 +116,101 @@
         </div>
         <div class="collapse navbar-collapse" id="collapse">
           <div class="nav navbar-nav visible-xs">
-            <a href="/about/">
+          <div role="tablist" id="about-title">
+            <a role="button" data-toggle="collapse" href="#about-content">
               <div class="sidebar-select about">
                 <i class="fa fa-lg fa-fw fa-question-circle"></i>
                 <span>About</span>
               </div>
             </a>
-            <a href="/work/design">
-              <div class="sidebar-select design">
-                <i class="fa fa-fw fa-lg fa-pencil"></i>
-                <span>Design</span>
-              </div>
-            </a>
-            <a href="/work/printmaking">
-              <div class="sidebar-select printmaking"> 
-                <i class="fa fa-lg fa-fw fa-book"></i>
-                <span>Printmaking</span>
-              </div>
-            </a>
-            <a href="/work/crafts_and_textiles">
-              <div class="sidebar-select crafts_and_textiles">
-                <i class="fa fa-lg fa-fw fa-scissors"></i>
-                <span>Crafts &amp; Textiles</span>
-              </div>
-            </a>
-            <a href="/work/photography">
-              <div class="sidebar-select photography"> 
-                <i class="fa fa-lg fa-fw fa-camera-retro"></i>
-                <span>Photography</span>
-              </div>
-            </a>
-            <a href="/contact/">
-              <div class="sidebar-select contact"> 
-                <i class="fa fa-lg fa-fw fa-paper-plane"></i>
-                <span>Contact</span>
-              </div>
-            </a>
+            <div id="about-content" class="panel-collapse collapse" role="tabpanel">
+              <a href="{% url 'about' %}">
+                <div class="panel-body sidebar-child" id="about-liz">
+                  <span>About Liz</span>
+                </div>
+              </a>
+              <a href="{% url 'exhibitions' %}">
+                <div class="panel-body sidebar-child" id="exhibitions">
+                  <span>Exhibitions</span>
+                </div>
+              </a>
+              <a href="{% url 'contact' %}">
+                <div class="panel-body sidebar-child" id="contact">
+                  <span>Contact</span>
+                </div>
+              </a>
+            </div>
           </div>
+          <a role="button" data-toggle="collapse" href="#design-content">
+            <div class="sidebar-select design">
+              <i class="fa fa-fw fa-lg fa-pencil"></i>
+              <span>Design</span>
+            </div>
+          </a>
+          <div id="design-content" class="panel-collapse collapse" role="tabpanel">
+            {% for project in projects.design %}
+            <a href="work/{{project.slug}}">
+              <div class="panel-body sidebar-child">
+                <span>"{{project.title}}", {{project.materials}}, {{project.year}}</span>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+          <a role="button" data-toggle="collase" href="#zines-content">
+            <div class="sidebar-select zines"> 
+              <i class="fa fa-lg fa-fw fa-book"></i>
+              <span>Zines</span>
+            </div>
+          </a>
+          <div id="zines-content" class="panel-collapse collapse" role="tabpanel">
+            {% for project in projects.zines %}
+            <a href="work/{{project.slug}}">
+              <div class="panel-body sidebar-child">
+                <span>"{{project.title}}", {{project.materials}}, {{project.year}}</span>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+          <a role="button" data-toggle="collapse" href="#bodies-content">
+            <div class="sidebar-select bodies">
+              <i class="fa fa-lg fa-fw fa-female"></i>
+              <span>Bodies</span>
+            </div>
+          </a>
+          <div id="bodies-content" class="panel-collapse collapse" role="tabpanel">
+            {% for project in projects.bodies %}
+            <a href="work/{{project.slug}}">
+              <div class="panel-body sidebar-child">
+                <span>"{{project.title}}", {{project.materials}}, {{project.year}}</span>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+          <a role="button" data-toggle="collapse" href="#screens-content">
+            <div class="sidebar-select screens"> 
+              <i class="fa fa-lg fa-fw fa-desktop"></i>
+              <span>Screens</span>
+            </div>
+          </a>
+          <div id="screens-content" class="panel-collapse collapse" role="tabpanel">
+            {% for project in projects.screens %}
+            <a href="work/{{project.slug}}">
+              <div class="panel-body sidebar-child">
+                <span>"{{project.title}}", {{project.materials}}, {{project.year}}</span>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+          {% if user.is_staff %}
+          <a href="/admin/logout/">
+            <div class="sidebar-select logout">
+              <i class="fa fa-lg fa-fw fa-arrow-right"></i>
+              <span>Log out</span>
+            </div>
+          </a>
+          {% endif %}
         </div>
+      </div>
       </nav>
     </header>
 
@@ -162,39 +219,39 @@
       <div class="row">
         <!-- sidebar -->
         <aside class="col-sm-3 col-sm-offset-1 hidden-xs">
-          <div class="collapse nav navbar-collapse" id="collapse">
-            <div role="tablist" id="about-title">
-              <a role="button" data-toggle="collapse" href="#about-content">
+          <div class="collapse nav navbar-collapse" id="sidebar-collapse">
+            <div role="tablist" id="about-title-sidebar">
+              <a role="button" data-toggle="collapse" href="#about-content-sidebar">
                 <div class="sidebar-select about">
                   <i class="fa fa-lg fa-fw fa-question-circle"></i>
                   <span>About</span>
                 </div>
               </a>
-              <div id="about-content" class="panel-collapse collapse" role="tabpanel">
+              <div id="about-content-sidebar" class="panel-collapse collapse" role="tabpanel">
                 <a href="{% url 'about' %}">
-                  <div class="panel-body sidebar-child" id="about-liz">
+                  <div class="panel-body sidebar-child" id="about-liz-sidebar">
                     <span>About Liz</span>
                   </div>
                 </a>
                 <a href="{% url 'exhibitions' %}">
-                  <div class="panel-body sidebar-child" id="exhibitions">
+                  <div class="panel-body sidebar-child" id="exhibitions-sidebar">
                     <span>Exhibitions</span>
                   </div>
                 </a>
                 <a href="{% url 'contact' %}">
-                  <div class="panel-body sidebar-child" id="contact">
+                  <div class="panel-body sidebar-child" id="contact-sidebar">
                     <span>Contact</span>
                   </div>
                 </a>
               </div>
             </div>
-            <a role="button" data-toggle="collapse" href="#design-content">
+            <a role="button" data-toggle="collapse" href="#design-content-sidebar">
               <div class="sidebar-select design">
                 <i class="fa fa-fw fa-lg fa-pencil"></i>
                 <span>Design</span>
               </div>
             </a>
-            <div id="design-content" class="panel-collapse collapse" role="tabpanel">
+            <div id="design-content-sidebar" class="panel-collapse collapse" role="tabpanel">
               {% for project in projects.design %}
               <a href="work/{{project.slug}}">
                 <div class="panel-body sidebar-child">
@@ -203,13 +260,13 @@
               </a>
               {% endfor %}
             </div>
-            <a role="button" data-toggle="collase" href="#zines-content">
+            <a role="button" data-toggle="collase" href="#zines-content-sidebar">
               <div class="sidebar-select zines"> 
                 <i class="fa fa-lg fa-fw fa-book"></i>
                 <span>Zines</span>
               </div>
             </a>
-            <div id="zines-content" class="panel-collapse collapse" role="tabpanel">
+            <div id="zines-content-sidebar" class="panel-collapse collapse" role="tabpanel">
               {% for project in projects.zines %}
               <a href="work/{{project.slug}}">
                 <div class="panel-body sidebar-child">
@@ -218,13 +275,13 @@
               </a>
               {% endfor %}
             </div>
-            <a role="button" data-toggle="collapse" href="#bodies-content">
+            <a role="button" data-toggle="collapse" href="#bodies-content-sidebar">
               <div class="sidebar-select bodies">
-                <i class="fa fa-lg fa-fw fa-scissors"></i>
+                <i class="fa fa-lg fa-fw fa-female"></i>
                 <span>Bodies</span>
               </div>
             </a>
-            <div id="bodies-content" class="panel-collapse collapse" role="tabpanel">
+            <div id="bodies-content-sidebar" class="panel-collapse collapse" role="tabpanel">
               {% for project in projects.bodies %}
               <a href="work/{{project.slug}}">
                 <div class="panel-body sidebar-child">
@@ -233,13 +290,13 @@
               </a>
               {% endfor %}
             </div>
-            <a role="button" data-toggle="collapse" href="#screens-content">
+            <a role="button" data-toggle="collapse" href="#screens-content-sidebar">
               <div class="sidebar-select screens"> 
-                <i class="fa fa-lg fa-fw fa-camera-retro"></i>
+                <i class="fa fa-lg fa-fw fa-desktop"></i>
                 <span>Screens</span>
               </div>
             </a>
-            <div id="screens-content" class="panel-collapse collapse" role="tabpanel">
+            <div id="screens-content-sidebar" class="panel-collapse collapse" role="tabpanel">
               {% for project in projects.screens %}
               <a href="work/{{project.slug}}">
                 <div class="panel-body sidebar-child">
