@@ -22,8 +22,6 @@ def home(request):
 
     # query projects for the sidebar categories
     sidebar_categories = [category for category in Category.objects.all()]
-    print(sidebar_categories)
-    # sidebar_categories = ['design', 'zines', 'bodies', 'screens']
 
     for category in sidebar_categories:
         try:
@@ -83,9 +81,19 @@ def exhibitions(request):
 
 
 def work(request, prj):
-    # Get the appropriate project object from the DB
+    context = {
+        'page': {
+            'title': ''
+        },
+        'project': {},
+        'works': {}
+    }
+
+    # Get the project object from the DB
     try:
         project = Project.objects.get(slug=prj)
+        context['project'] = project
+        context['page']['title'] = project.name
     except Project.DoesNotExist:
         raise Http404("No projects found with the slug '%s'" % prj)
 
@@ -96,12 +104,5 @@ def work(request, prj):
 
     except Work.DoesNotExist:
         raise Http404("No works found in the project '%s'" % prj)
-
-    context = {
-        'page': {
-            'title': category_obj.name
-        },
-        'category': category_obj
-    }
 
     return render(request, 'work.html', context)
