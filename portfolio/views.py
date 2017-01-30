@@ -93,13 +93,13 @@ def work(request, prj):
     try:
         project = Project.objects.get(slug=prj)
         context['project'] = project
-        context['page']['title'] = project.name
+        context['page']['title'] = project.title
     except Project.DoesNotExist:
         raise Http404("No projects found with the slug '%s'" % prj)
 
     # Query DB for works corresponding to $project
     try:
-        works = Work.objects.filter(project=project)
+        works = Work.objects.filter(parent_project=project)
         context['works'] = works
 
     except Work.DoesNotExist:

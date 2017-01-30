@@ -81,8 +81,8 @@ def filepath(instance, filename):
     """
     Callable that returns a filepath for an uploaded image.
     """
-    # file will be uploaded to MEDIA_ROOT/<category>/<filename>
-    return '{0}/{1}'.format(instance.category.slug, filename)
+    # file will be uploaded to MEDIA_ROOT/<category>/<project>/<filename>
+    return '{0}/{1}'.format(instance.project.category.slug, instance.project.slug, filename)
 
 
 class Project(models.Model):
@@ -110,6 +110,12 @@ class Project(models.Model):
     project_image = models.FileField(
         upload_to=filepath,
         verbose_name='upload a file')
+    featured_image = models.ForeignKey(
+        'Work',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        )
 
     def __str__(self):
         return self.title
@@ -127,7 +133,7 @@ class Work(models.Model):
     """
     title = models.CharField(max_length=250)
     alt_text = models.CharField(max_length=250)
-    project = models.ForeignKey(
+    parent_project = models.ForeignKey(
         'Project',
         on_delete=models.CASCADE
     )

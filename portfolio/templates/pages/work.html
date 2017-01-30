@@ -6,15 +6,18 @@
 <div class="work-content">
     <h3 class="text-center">{{ project.title }}</h3>
     <br />
-    <img src="{{ project.project_image.url }}" class="img-responsive center-block"></img>
+    <img src="{{ project.featured_image.work_image.url }}" class="img-responsive center-block"></img>
+    <br />
     <p><i><strong>{{ project.title }}</strong></i></p>
     <p>{{ project.materials }}</p>
     <p>{{ project.year }}</p>
     <br />
     {% if project.statement %}
-    <p class="text-center">{{ project.statement|linebreaks }}</p>
+    <p>{{ project.statement|linebreaks }}</p>
     {% endif %}
     <div class="grid">
+        <div class="grid-sizer"></div>
+        <div class="grid-gutter"></div>
         {% for work in works %}
         <div class="grid-item">
             {% if user.is_staff %}
@@ -109,21 +112,39 @@
         // Initialize Masonry image grid
         $('.grid').masonry({
             itemSelector: '.grid-item',
-            columnwidth: 200
+            columnwidth: '.grid-sizer',
+            percentPosition: true,
+            gutter: '.grid-gutter'
         })
+
+        // Define gallery function
+        var openGallery = function(items, index) {
+            // TODO: Define logic for launching the gallery
+            var options = {
+                galleryUID: index
+            }
+            var gallery = new PhotoSwipe($('.pswp'), PhotoSwipeUI_Default, items, options);
+            gallery.init();
+        }
 
         // Initialize PhotoSwipe gallery
         var items = []
+        var i = 0
         $('.grid-item>img').each(function() {
+            // Add data to globale `items` array
             items.push({
                 src: $(this).attr('src'),
                 w: $(this).css('width'),
                 h: $(this).css('height') 
             });
+            // Bind gallery functions
+            itemIndex = i;
+            i++;
+            $(this).attr('data-pswp-uid', itemIndex);
+            $(this).click(function() {
+                openGallery(items, $(this).attr('data-pswp-uid')); 
+            });
         });
-        var options = {};
-        var gallery = new PhotoSwipe($('.pswp'), PhotoSwipeUI_Default, items, options);
-        gallery.init();
 
         /* Set the current nav tab as 'selected' */
         var category = $('#which-tab-selected').attr('data-category')

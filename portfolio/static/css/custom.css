@@ -87,12 +87,37 @@ a:hover, a:focus {
     outline: 0;
 }
 
+/* Work page */
+
 .work-container {
     border-left: 1px solid #ddd;
     padding-top: 15px;
     padding-bottom: 15px;
     height: 500px;
     overflow: scroll;
+}
+
+/* Set grid to 50% width */
+
+.grid-sizer,
+.grid-item {
+    width: 48%;
+    margin-bottom: 2%;
+}
+
+.grid-gutter {
+    width: 2%;
+}
+
+@media (max-width:600px) {
+    .grid-sizer,
+    .grid-item {
+        width: 100%;
+    }
+
+    .grid-gutter {
+        width: 0;
+    }
 }
 
 .nav>.sidebar-select>.fa {

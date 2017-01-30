@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^$', views.home, name="home"),
     url(r'^admin/', admin_site.urls),
     url(r'^about/$', views.about, name="about"),
-    url(r'^work/(?P<category>\S+)/$', views.work, name="work"),
+    url(r'^work/(?P<prj>\S+)/$', views.work, name="work"),
     url(r'^contact/$', views.contact, name="contact"),
     url(r'^exhibitions/$', views.exhibitions, name="exhibitions"),
 ]
