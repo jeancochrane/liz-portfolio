@@ -8,7 +8,7 @@ from portfolio.models import Category, Project, About, Contact, Work, Exhibition
 
 def home(request):
     context = {
-        'projects': {}
+        'featured_projects': {}
     }
 
     # query projects for the featured section
@@ -19,15 +19,6 @@ def home(request):
                          Select a project to feature on the admin page.""")
 
     context['featured_projects'] = featured_projects
-
-    # query projects for the sidebar categories
-    sidebar_categories = [category for category in Category.objects.all()]
-
-    for category in sidebar_categories:
-        try:
-            context['projects'][category.slug] = Project.objects.filter(category=category).order_by('-created_date')
-        except Project.DoesNotExist:
-            continue
 
     return render(request, 'index.html', context)
 
