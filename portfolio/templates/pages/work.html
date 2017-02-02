@@ -120,15 +120,16 @@
         })
 
         // Define gallery function
-        var openGallery = function(items, i) {
+        var openGallery = function(items, ind) {
             // TODO: Define logic for launching the gallery
             var options = {
-                index: i,
+                index: ind,
                 escKey: true,
                 bgOpacity: 0.8
             }
             var pswpElement = document.querySelectorAll('.pswp')[0];
             var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+            console.log(gallery);
             gallery.init();
         }
 
@@ -147,7 +148,7 @@
             i++;
             $(this).attr('data-pswp-uid', itemIndex);
             $(this).closest('a').click(function() {
-                openGallery(items, $(this).attr('data-pswp-uid')); 
+                openGallery(items, parseInt($(this).children('img').attr('data-pswp-uid'))); 
             });
         });
 
