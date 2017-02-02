@@ -98,7 +98,8 @@
         </div>
     </div>
 </div>
-<div id="which-tab-selected" data-category="{{ project.slug }}"></div>
+<div id="which-project" data-category="{{ project.slug }}"></div>
+<div id="which-category" data-category="{{ project.category.slug }}"></div>
 {% endblock %}
 
 {% block extra-js %}
@@ -121,7 +122,6 @@
 
         // Define gallery function
         var openGallery = function(items, ind) {
-            // TODO: Define logic for launching the gallery
             var options = {
                 index: ind,
                 escKey: true,
@@ -152,12 +152,12 @@
             });
         });
 
-        console.log(items);
-
-        /* Set the current nav tab as 'selected' */
-        var category = $('#which-tab-selected').attr('data-category')
+        // Set the current nav tab as 'selected'
+        var project = $('#which-project').attr('data-category');
+        var category = $('#which-category').attr('data-category');
         $('.sidebar-select').removeAttr('style'); // reset all navs
-        $('.' + category).css('background-color', '#e6e6e6'); // select the current nav
+        $('#' + category + '-content-sidebar').addClass('in');
+        $('#' + project).css('background-color', '#e6e6e6'); // select the current nav
     });
 </script>
 {% endblock %}
