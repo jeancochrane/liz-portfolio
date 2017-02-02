@@ -21,13 +21,15 @@
         {% for work in works %}
         <div class="grid-item">
             {% if user.is_staff %}
-            <a href="/admin/portfolio/work/{{ work.pk }}/change/">
+            <a href="/admin/portfolio/work/{{ work.pk }}/change/" class="admin-edit">
                 <i class="fa fa-fw fa-pencil"></i>
                 <strong>Edit this work</strong>
             </a>
             <br />
             {% endif %}
-            <img src="{{ work.work_image.url }}" class="img-responsive center-block"></img>
+            <a href="javascript:void(0)" class="img-link" alt="{{ work.alt_text }}">
+                <img src="{{ work.work_image.url }}" class="img-responsive center-block"></img>
+            </a>
         </div>
         {% endfor %}
     </div>
@@ -102,7 +104,7 @@
 {% block extra-js %}
 <!-- Load external JS libraries for images -->
 <script src="{% static 'js/masonry.pkgd.min.js' %}" type="text/javascript"></script>
-<script src="{% static 'js/photoswipe.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/photoswipe.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/photoswipe-ui-default.min.js' %}" type="text/javascript"></script>
 <link href="{% static 'css/photoswipe.css' %}" rel="stylesheet">
 <link href="{% static 'css/default-skin.css' %}" rel="stylesheet">
@@ -118,33 +120,38 @@
         })
 
         // Define gallery function
-        var openGallery = function(items, index) {
+        var openGallery = function(items, i) {
             // TODO: Define logic for launching the gallery
             var options = {
-                galleryUID: index
+                index: i,
+                escKey: true,
+                bgOpacity: 0.8
             }
-            var gallery = new PhotoSwipe($('.pswp'), PhotoSwipeUI_Default, items, options);
+            var pswpElement = document.querySelectorAll('.pswp')[0];
+            var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
             gallery.init();
         }
 
         // Initialize PhotoSwipe gallery
         var items = []
         var i = 0
-        $('.grid-item>img').each(function() {
+        $('.grid-item>a>img').each(function() {
             // Add data to globale `items` array
             items.push({
                 src: $(this).attr('src'),
-                w: $(this).css('width'),
-                h: $(this).css('height') 
+                w: parseInt($(this).css('width')),
+                h: parseInt($(this).css('height')) 
             });
             // Bind gallery functions
             itemIndex = i;
             i++;
             $(this).attr('data-pswp-uid', itemIndex);
-            $(this).click(function() {
+            $(this).closest('a').click(function() {
                 openGallery(items, $(this).attr('data-pswp-uid')); 
             });
         });
+
+        console.log(items);
 
         /* Set the current nav tab as 'selected' */
         var category = $('#which-tab-selected').attr('data-category')
