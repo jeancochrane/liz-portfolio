@@ -2,6 +2,7 @@ from django.http import Http404
 from django.shortcuts import render
 from django.conf import settings
 from django.contrib.sites.models import Site
+from django.core.files.images import get_image_dimensions
 
 from portfolio.models import Category, Project, About, Contact, Work, Exhibitions
 
@@ -77,7 +78,8 @@ def work(request, prj):
             'title': ''
         },
         'project': {},
-        'works': {}
+        'works': {},
+        'dimensions': {}
     }
 
     # Get the project object from the DB
@@ -91,6 +93,9 @@ def work(request, prj):
     # Query DB for works corresponding to $project
     try:
         works = Work.objects.filter(parent_project=project)
+        # get dimensions of images
+        for work in works:
+            work.width, work.height = get_image_dimensions(work.work_image.file)
         context['works'] = works
 
     except Work.DoesNotExist:

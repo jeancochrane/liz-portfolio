@@ -28,7 +28,7 @@
             <br />
             {% endif %}
             <a href="javascript:void(0)" class="img-link" alt="{{ work.alt_text }}">
-                <img src="{{ work.work_image.url }}" class="img-responsive center-block"></img>
+                <img src="{{ work.work_image.url }}" class="img-responsive center-block" data-width="{{ work.width }}" data-height="{{ work.height }}"></img>
             </a>
         </div>
         {% endfor %}
@@ -136,11 +136,11 @@
         var items = []
         var i = 0
         $('.grid-item>a>img').each(function() {
-            // Add data to globale `items` array
+            // Add data to global `items` array
             items.push({
                 src: $(this).attr('src'),
-                w: parseInt($(this).css('width')),
-                h: parseInt($(this).css('height')) 
+                w: parseInt($(this).attr('data-width')),
+                h: parseInt($(this).attr('data-height')) 
             });
             // Bind gallery functions
             itemIndex = i;
