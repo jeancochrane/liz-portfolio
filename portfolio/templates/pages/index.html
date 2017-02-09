@@ -21,9 +21,9 @@
         <br />
         {% endif %}
         {% for project in featured_projects %}
-        <img src="{{ project.featured_image.work_image.url }}" class="img-responsive center-block"></img>
-        <br />
         <a href="/work/{{project.slug}}">
+            <img src="{{ project.featured_image.work_image.url }}" class="img-responsive center-block"></img>
+            <br />
             <p class="text-center">"{{ project.title }}", {{ project.materials }}, {{ project.year }}</p>
         </a>
         <hr />
