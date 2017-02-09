@@ -20,8 +20,8 @@
     {% if featured_image %}
     <meta content="https://liz-barr.com{{ featured_image.url }}" property="og:image">
     {% elif featured_projects %}
-      {% with featured_projects|first as feat %}
-        <meta content="https://liz-barr.com{{ feat.project_image.url }}" property="og:image">
+      {% with featured_projects|first as prj %}
+        <meta content="https://liz-barr.com{{ prj.featured_image.work_image.url }}" property="og:image">
       {% endwith %}
     {% elif works %}
       {% with works|first as wrk %}

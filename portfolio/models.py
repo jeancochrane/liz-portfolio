@@ -107,9 +107,6 @@ class Project(models.Model):
     featured = models.BooleanField(
         default=False,
         verbose_name='feature this project on the home page')
-    project_image = models.FileField(
-        upload_to=filepath,
-        verbose_name='upload a file')
     featured_image = models.ForeignKey(
         'Work',
         on_delete=models.SET_NULL,
