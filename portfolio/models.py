@@ -82,7 +82,7 @@ def filepath(instance, filename):
     Callable that returns a filepath for an uploaded image.
     """
     # file will be uploaded to MEDIA_ROOT/<category>/<project>/<filename>
-    return '{0}/{1}'.format(instance.parent_project.category.slug,
+    return '{0}/{1}/{2}'.format(instance.parent_project.category.slug,
                             instance.parent_project.slug,
                             filename)
 
