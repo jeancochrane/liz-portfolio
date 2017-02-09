@@ -12,69 +12,66 @@
     {% else %}
       <meta content="{{ SITE_DESCRIPTION }}" name='description' />
     {% endif %}
-    <meta content='datamade.us' name='author' />
+    <meta content='jeancochrane.com' name='author' />
 
     <!-- Facebook metadata -->
     <meta content="{{ SITE_NAME }}" property="og:site_name">
-    {% if page.title %}
-      <meta content="{{ page.title }}" property="og:title">
-    {% else %}
-      <meta content="{{ SITE_NAME }}" property="og:title">
+    <meta content="website" property="og:type">
+    {% if featured_image %}
+    <meta content="https://liz-barr.com{{ featured_image.url }}" property="og:image">
+    {% elif featured_projects %}
+      {% with featured_projects|first as feat %}
+        <meta content="https://liz-barr.com{{ feat.project_image.url }}" property="og:image">
+      {% endwith %}
+    {% elif works %}
+      {% with works|first as wrk %}
+        <meta content="https://liz-barr.com{{ wrk.work_image.url }}" property="og:image">
+      {% endwith %}
     {% endif %}
     {% if page.title %}
-      <meta content="article" property="og:type">
+      <meta content="{{ page.title }} - {{ SITE_NAME }}" property="og:title">
     {% else %}
-      <meta content="website" property="og:type">
+      <meta content="{{ SITE_NAME }}" property="og:title">
     {% endif %}
     {% if page.description %}
       <meta content="{{ page.description }}" property="og:description">
     {% else %}
       <meta content="{{ SITE_DESCRIPTION }}" property="og:description">
     {% endif %}
-    {% if request.get_full_path %}
-      <meta content="{{ request.get_full_path }}" property="og:url">
-    {% endif %}
-    {% if page.date %}
-      <meta content="{{ page.date }}" property="article:published_time">
-      <meta content="{{ site.url }}/about/" property="article:author">
-    {% endif %}
-    {% if page.image %}
-      <meta content="{{ site.url }}/{{ page.image }}" property="og:image">
+    {% if request.build_absolute_uri %}
+        <meta content="{{ request.build_absolute_uri }}" property="og:url">
     {% else %}
-      <meta content="{{ site.url }}/images/#" property="og:image">
-    {% endif %}
-    {% if page.categories %}
-      {% for category in page.categories %}
-      <meta content="{{ category }}" property="article:section">
-      {% endfor %}
-    {% endif %}
-    {% if page.tags %}
-      {% for tag in page.tags %}
-      <meta content="{{ tag }}" property="article:tag">
-      {% endfor %}
+        <meta content="https://liz-barr.com" property="og:url">
     {% endif %}
 
     <!-- Twitter metadata -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@DataMadeCo">
-    <meta name="twitter:creator" content="@DataMadeCo">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@jean_cochrane">
+    {% if featured_image %}
+    <meta name="twitter:image:src" content="https://liz-barr.com{{ featured_image.url }}">
+    {% elif featured_projects %}
+      {% with featured_projects|first as feat %}
+        <meta name="twitter:image:src" content="https://liz-barr.com{{ feat.project_image.url }}">
+      {% endwith %}
+    {% elif works %}
+      {% with works|first as wrk %}
+        <meta name="twitter:image:src" content="https://liz-barr.com{{ wrk.work_image.url }}">
+      {% endwith %}
+    {% endif %}
     {% if page.title %}
-      <meta name="twitter:title" content="{{ page.title }}">
+      <meta name="twitter:title" content="{{ page.title }} - {{ SITE_NAME }}">
     {% else %}
       <meta name="twitter:title" content="{{ SITE_NAME }}">
     {% endif %}
-    {% if request.get_full_path %}
-      <meta name="twitter:url" content="{{ request.get_full_path }}">
+    {% if request.build_absolute_uri %}
+      <meta name="twitter:url" content="{{ request.build_absolute_uri }}">
+    {% else %}
+      <meta name="twitter:url" content="https://liz-barr.com">
     {% endif %}
     {% if page.description %}
       <meta name="twitter:description" content="{{ page.description }}">
     {% else %}
       <meta name="twitter:description" content="{{ SITE_DESCRIPTION }}">
-    {% endif %}
-    {% if page.image %}
-      <meta name="twitter:image:src" content="{{ site.url }}/images/{{ page.image }}">
-    {% else %}
-      <meta name="twitter:image:src" content="{{ site.url }}/images/#">
     {% endif %}
 
     <!-- Bootstrap core CSS -->
@@ -331,16 +328,6 @@ $(function() {
             offsetTop = 100; // Calculate the top offset
         $('.work-container').css('height', (h - offsetTop));
     }).resize();
-
-    // /* Turn the sidebar into an accordion */
-    // $('#accordion').on('click', function() {
-    //     $('.collapse').each(function() {
-    //         if ($(this).hasClass('in')) {
-    //             console.log($(this));
-    //             $(this).removeClass('in');
-    //         }
-    //     });
-    // })
 });
 </script>
 {% block extra-js %}{% endblock %}
