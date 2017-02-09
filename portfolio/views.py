@@ -92,7 +92,7 @@ def work(request, prj):
 
     # Query DB for works corresponding to $project
     try:
-        works = Work.objects.filter(parent_project=project)
+        works = Work.objects.filter(parent_project=project).order_by('order')
         # get dimensions of images
         for work in works:
             work.width, work.height = get_image_dimensions(work.work_image.file)
