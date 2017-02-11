@@ -84,8 +84,8 @@ def filepath(instance, filename):
     """
     # file will be uploaded to MEDIA_ROOT/<category>/<project>/<filename>
     return '{0}/{1}/{2}'.format(instance.parent_project.category.slug,
-                            instance.parent_project.slug,
-                            filename)
+                                instance.parent_project.slug,
+                                filename)
 
 
 class Project(models.Model):

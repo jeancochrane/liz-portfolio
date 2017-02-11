@@ -15,6 +15,9 @@ class ProjectForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)
+        if self.instance:
+            self.fields['featured_image'].queryset = Work.objects.filter(
+                parent_project=self.instance)
 
 
 class ProjectAdmin(admin.ModelAdmin):
