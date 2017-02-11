@@ -117,6 +117,10 @@ class Project(models.Model):
         blank=True,
         null=True,
         )
+    order = models.IntegerField(
+        verbose_name='position on the sidebar',
+        default=1
+    )
 
     def __str__(self):
         return self.title

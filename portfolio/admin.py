@@ -22,6 +22,9 @@ class ProjectForm(forms.ModelForm):
 
 class ProjectAdmin(admin.ModelAdmin):
     form = ProjectForm
+    list_display = ('title', 'order')
+    list_editable = ('order',)
+    list_filter = ('category',)
 
 
 class LizAdmin(AdminSite):

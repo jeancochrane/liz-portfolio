@@ -15,7 +15,8 @@ def universal_context(request):
 
     for category in sidebar_categories:
         try:
-            context['projects'][category.slug] = Project.objects.filter(category=category).order_by('-created_date')
+            context['projects'][category.slug] = Project.objects.filter(
+                category=category).order_by('order')
         except Project.DoesNotExist:
             continue
 
