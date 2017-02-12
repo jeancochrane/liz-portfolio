@@ -42,7 +42,9 @@ def resize(buf, img_size='thumbnail'):
             '%s' is not a valid image size. Accepted sizes:
              thumbnail, small, medium.""" % img_size)
 
-    if buf.size < 200000:
+    if buf.size < 150000:
+        print("""original image is smaller than 150kb – skipping %s."""
+              % img_size)
         raise NoThumbnailException
 
     try:
@@ -61,9 +63,10 @@ def resize(buf, img_size='thumbnail'):
     elif true_type == 'image/png':
         format = 'PNG'
     else:  # Anything else, just skip the thumbnail step
-        raise Exception("""
+        print("""
             '%s' is not a valid image type for formatting. Accepted types:
              jpeg, png.""" % true_type)
+        raise NoThumbnailException
 
     # Configure PIL objects
     orig = Image.open(buf)

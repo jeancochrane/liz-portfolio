@@ -184,6 +184,7 @@ class Work(models.Model):
         self._original_image = self.image
 
     def save(self, force_insert=False, force_update=False, *args, **kwargs):
+        print('`save` method called for work %s' % self.title)
 
         # If the admin changes the original image, update all responsive images
         if (self._original_image) and (self.image != self._original_image):
