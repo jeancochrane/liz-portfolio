@@ -6,7 +6,21 @@
 <div class="work-content">
     <h3 class="text-center">{{ project.title }}</h3>
     <br />
+    {% if project.featured_image.large %}
+    <img src="{{ project.featured_image.large.url }}"
+         srcset="{{ project.featured_image.small.url }} {{ project.featured_image.small.width }}w,
+                 {{ project.featured_image.thumbnail.url }} {{ project.featured_image.thumbnail.width }}w,
+                 {{ project.featured_image.medium.url }} {{ project.featured_image.medium.width }}w,
+                 {{ project.featured_image.large.url }} {{ project.featured_image.large.width }}w,
+                 {{ project.featured_image.image.url }} {{ project.featured_image.image.width }}w"
+         sizes="(min-width: 1200px) calc(50vw - 30px),
+                (min-width: 768px) calc(58vw - 30px),
+                100vw"
+         class="img-responsive center-block">
+    </img>
+    {% else %}
     <img src="{{ project.featured_image.image.url }}" class="img-responsive center-block"></img>
+    {% endif %}
     <br />
     <p><i><strong>{{ project.title }}</strong></i></p>
     <p>{{ project.materials }}</p>
@@ -28,10 +42,23 @@
             <br />
             {% endif %}
             <a href="javascript:void(0)" class="img-link" alt="{{ work.alt_text }}">
-                {% if work.thumbnail %}
-                <img class="img-responsive center-block" src="{{ work.thumbnail.url }}" data-src="{{work.image.url}}" data-width="{{ work.width }}" data-height="{{ work.height }}"></img>
+                {% if work.large %}
+                <img src="{{ work.large.url }}"
+                     srcset="{{ work.small.url }} {{ work.small.width }}w,
+                             {{ work.thumbnail.url }} {{ work.thumbnail.width }}w,
+                             {{ work.medium.url }} {{ work.medium.width }}w,
+                             {{ work.large.url }} {{ work.large.width }}w,
+                             {{ work.image.url }} {{ work.image.width }}w"
+                     sizes="(min-width: 1200px) calc(25vw - 30px),
+                            (min-width: 768px) calc(29vw - 30px),
+                            100vw"
+                     class="img-responsive center-block"
+                     data-src="{{ work.image.url }}"
+                     data-width="{{ work.image.width }}"
+                     data-height="{{ work.image.height }}">
+                </img>
                 {% else %}
-                <img class="img-responsive center-block" src="{{ work.image.url }}" data-src="{{work.image.url}}" data-width="{{ work.width }}" data-height="{{ work.height }}"></img>
+                <img class="img-responsive center-block" src="{{ work.image.url }}" data-src="{{ work.image.url }}" data-width="{{ work.image.width }}" data-height="{{ work.image.height }}"></img>
                 {% endif %}
             </a>
         </div>

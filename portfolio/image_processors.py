@@ -6,10 +6,10 @@ import magic
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 # Set possible image sizes
-THUMBNAIL = (1200, 1200)  # For the grid layout
 SMALL = (700, 1000)  # For small screens
+THUMBNAIL = (1200, 1600)  # For the grid layout
 MEDIUM = (1500, 2000)  # For medium screens
-LARGE = (2000, 3000)
+LARGE = (2000, 2666)
 
 
 class NoThumbnailException(Exception):

@@ -7,6 +7,18 @@ from django.core.files.images import get_image_dimensions
 from portfolio.models import Category, Project, About, Contact, Work, Exhibitions
 
 
+def calculate_dimensions(work):
+    """
+    Calculates the image widths of a Work object.
+    """
+    work.image.width, work.image.height = get_image_dimensions(work.image.file)
+    work.small.width, work.small.height = get_image_dimensions(work.small.file)
+    work.thumbnail.width, work.thumbnail.height = get_image_dimensions(work.thumbnail.file)
+    work.medium.width, work.medium.height = get_image_dimensions(work.medium.file)
+    work.large.width, work.large.height = get_image_dimensions(work.large.file)
+
+    return work
+
 def home(request):
     context = {
         'featured_projects': {}
@@ -15,6 +27,11 @@ def home(request):
     # query projects for the featured section
     try:
         featured_projects = Project.objects.filter(featured=True).order_by('-created_date')
+        for project in featured_projects:
+            try:
+                project.featured_image = calculate_dimensions(project.featured_image)
+            except (AttributeError, ValueError):
+                pass
     except Project.DoesNotExist:
         raise Http404("""No featured projects found.
                          Select a project to feature on the admin page.""")
@@ -85,6 +102,10 @@ def work(request, prj):
     # Get the project object from the DB
     try:
         project = Project.objects.get(slug=prj)
+        try:
+            project.featured_image = calculate_dimensions(project.featured_image)
+        except (AttributeError, ValueError):
+            pass
         context['project'] = project
         context['page']['title'] = project.title
     except Project.DoesNotExist:
@@ -95,7 +116,10 @@ def work(request, prj):
         works = Work.objects.filter(parent_project=project).order_by('order')
         # get dimensions of images
         for work in works:
-            work.width, work.height = get_image_dimensions(work.image.file)
+            try:
+                work = calculate_dimensions(work)
+            except (AttributeError, ValueError):  # Handle non-responsives
+                work.image.width, work.image.height = get_image_dimensions(work.image.file)
         context['works'] = works
 
     except Work.DoesNotExist:
