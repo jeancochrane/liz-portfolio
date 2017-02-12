@@ -36,7 +36,7 @@ class LizAdmin(AdminSite):
 class WorkAdmin(admin.ModelAdmin):
     list_display = ('title', 'order')
     list_editable = ('order',)
-    list_filter = ('parent_project', 'featured')
+    list_filter = ('parent_project',)
 
 
 admin_site = LizAdmin()

@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.contrib.sites.models import Site
 
+from portfolio.image_processors import make_thumbnail, NoThumbnailException
+
 
 class About(models.Model):
     """
@@ -126,7 +128,8 @@ class Project(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        if not self.slug:
+            self.slug = slugify(self.title)
         super(Project, self).save(*args, **kwargs)
 
 
@@ -147,13 +150,23 @@ class Work(models.Model):
         upload_to=filepath,
         verbose_name='upload a file'
     )
+    thumbnail = models.FileField(
+        upload_to=filepath,
+        verbose_name='upload a thumbnail (optional)',
+        blank=True
+    )
     order = models.IntegerField(
         verbose_name='position on the category page',
         default=1
     )
-    featured = models.BooleanField(
-        default=False,
-        verbose_name='feature image on the project page')
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.thumbnail:
+            try:
+                self.thumbnail = make_thumbnail(self.work_image)
+            except NoThumbnailException:
+                pass
+        super(Work, self).save(*args, **kwargs)

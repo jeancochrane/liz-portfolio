@@ -28,7 +28,11 @@
             <br />
             {% endif %}
             <a href="javascript:void(0)" class="img-link" alt="{{ work.alt_text }}">
-                <img src="{{ work.work_image.url }}" class="img-responsive center-block" data-width="{{ work.width }}" data-height="{{ work.height }}"></img>
+                {% if work.thumbnail %}
+                <img class="img-responsive center-block" src="{{ work.thumbnail.url }}" data-src="{{work.work_image.url}}" data-width="{{ work.width }}" data-height="{{ work.height }}"></img>
+                {% else %}
+                <img class="img-responsive center-block" src="{{ work.work_image.url }}" data-src="{{work.work_image.url}}" data-width="{{ work.width }}" data-height="{{ work.height }}"></img>
+                {% endif %}
             </a>
         </div>
         {% endfor %}
@@ -133,7 +137,6 @@
             }
             var pswpElement = document.querySelectorAll('.pswp')[0];
             var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
-            console.log(gallery);
             gallery.init();
         }
 
@@ -143,7 +146,7 @@
         $('.grid-item>a>img').each(function() {
             // Add data to global `items` array
             items.push({
-                src: $(this).attr('src'),
+                src: $(this).attr('data-src'),
                 w: parseInt($(this).attr('data-width')),
                 h: parseInt($(this).attr('data-height')) 
             });
