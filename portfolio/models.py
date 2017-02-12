@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.contrib.sites.models import Site
 
-from portfolio.image_processors import make_thumbnail, NoThumbnailException
+from portfolio.image_processors import resize, NoThumbnailException
 
 
 class About(models.Model):
@@ -146,13 +146,29 @@ class Work(models.Model):
         on_delete=models.CASCADE
     )
     created_date = models.DateTimeField(default=timezone.now)
-    work_image = models.FileField(
+    image = models.FileField(
         upload_to=filepath,
         verbose_name='upload a file'
     )
+    _original_image = None  # Placeholder for checking if image has updated
     thumbnail = models.FileField(
         upload_to=filepath,
         verbose_name='upload a thumbnail (optional)',
+        blank=True
+    )
+    small = models.FileField(
+        upload_to=filepath,
+        verbose_name='upload a mobile-optimized image (optional)',
+        blank=True
+    )
+    medium = models.FileField(
+        upload_to=filepath,
+        verbose_name='upload a medium-sized image (optional)',
+        blank=True
+    )
+    large = models.FileField(
+        upload_to=filepath,
+        verbose_name='upload a large image (optional)',
         blank=True
     )
     order = models.IntegerField(
@@ -163,10 +179,53 @@ class Work(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, *args, **kwargs):
-        if not self.thumbnail:
+    def __init__(self, *args, **kwargs):
+        super(Work, self).__init__(*args, **kwargs)
+        self._original_image = self.image
+
+    def save(self, force_insert=False, force_update=False, *args, **kwargs):
+
+        # If the admin changes the original image, update all responsive images
+        if (self._original_image) and (self.image != self._original_image):
             try:
-                self.thumbnail = make_thumbnail(self.work_image)
+                self.thumbnail = resize(self.image)
             except NoThumbnailException:
                 pass
-        super(Work, self).save(*args, **kwargs)
+            try:
+                self.small = resize(self.image, img_size="small")
+            except NoThumbnailException:
+                pass
+            try:
+                self.medium = resize(self.image, img_size="medium")
+            except NoThumbnailException:
+                pass
+            try:
+                self.large = resize(self.image, img_size="large")
+            except NoThumbnailException:
+                pass
+
+        # If responsive images don't yet exist, make them
+        elif not self._original_image:
+            if not self.thumbnail:
+                try:
+                    self.thumbnail = resize(self.image)
+                except NoThumbnailException:
+                    pass
+            if not self.small:
+                try:
+                    self.small = resize(self.image, img_size="small")
+                except NoThumbnailException:
+                    pass
+            if not self.medium:
+                try:
+                    self.medium = resize(self.image, img_size="medium")
+                except NoThumbnailException:
+                    pass
+            if not self.large:
+                try:
+                    self.large = resize(self.image, img_size="large")
+                except NoThumbnailException:
+                    pass
+
+        self._original_image = self.image
+        super(Work, self).save(force_insert, force_update, *args, **kwargs)

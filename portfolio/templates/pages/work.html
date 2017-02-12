@@ -6,7 +6,7 @@
 <div class="work-content">
     <h3 class="text-center">{{ project.title }}</h3>
     <br />
-    <img src="{{ project.featured_image.work_image.url }}" class="img-responsive center-block"></img>
+    <img src="{{ project.featured_image.image.url }}" class="img-responsive center-block"></img>
     <br />
     <p><i><strong>{{ project.title }}</strong></i></p>
     <p>{{ project.materials }}</p>
@@ -29,9 +29,9 @@
             {% endif %}
             <a href="javascript:void(0)" class="img-link" alt="{{ work.alt_text }}">
                 {% if work.thumbnail %}
-                <img class="img-responsive center-block" src="{{ work.thumbnail.url }}" data-src="{{work.work_image.url}}" data-width="{{ work.width }}" data-height="{{ work.height }}"></img>
+                <img class="img-responsive center-block" src="{{ work.thumbnail.url }}" data-src="{{work.image.url}}" data-width="{{ work.width }}" data-height="{{ work.height }}"></img>
                 {% else %}
-                <img class="img-responsive center-block" src="{{ work.work_image.url }}" data-src="{{work.work_image.url}}" data-width="{{ work.width }}" data-height="{{ work.height }}"></img>
+                <img class="img-responsive center-block" src="{{ work.image.url }}" data-src="{{work.image.url}}" data-width="{{ work.width }}" data-height="{{ work.height }}"></img>
                 {% endif %}
             </a>
         </div>

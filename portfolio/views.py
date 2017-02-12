@@ -95,7 +95,7 @@ def work(request, prj):
         works = Work.objects.filter(parent_project=project).order_by('order')
         # get dimensions of images
         for work in works:
-            work.width, work.height = get_image_dimensions(work.work_image.file)
+            work.width, work.height = get_image_dimensions(work.image.file)
         context['works'] = works
 
     except Work.DoesNotExist:
