@@ -71,6 +71,7 @@ class Category(models.Model):
     # `slug` defines the text that will represent the category in a URL path.
     # Should be short, lowercase, and contain no spaces.
     slug = models.SlugField(
+        max_length=250,
         blank=True)
 
     class Meta:
@@ -99,6 +100,7 @@ class Project(models.Model):
     title = models.CharField(max_length=250)
     # TO DO: Figure out how to remove `slug` from the admin page
     slug = models.SlugField(
+        max_length=250,
         blank=True)
     materials = models.CharField(max_length=250)
     year = models.IntegerField()
