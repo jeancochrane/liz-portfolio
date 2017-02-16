@@ -33,11 +33,19 @@
     <meta content="https://liz-barr.com{{ featured_image.url }}" property="og:image">
     {% elif featured_projects %}
       {% with featured_projects|first as prj %}
+        {% if prj.featured_image.large %}
+        <meta content="https://liz-barr.com{{ prj.featured_image.large.url }}" property="og:image">
+        {% else %}
         <meta content="https://liz-barr.com{{ prj.featured_image.image.url }}" property="og:image">
+        {% endif %}
       {% endwith %}
     {% elif works %}
       {% with works|first as wrk %}
+        {% if wrk.large %}
+        <meta content="https://liz-barr.com{{ wrk.large.url }}" property="og:image">
+        {% else %}
         <meta content="https://liz-barr.com{{ wrk.image.url }}" property="og:image">
+        {% endif %}
       {% endwith %}
     {% endif %}
     {% if page.title %}
@@ -62,12 +70,20 @@
     {% if featured_image %}
     <meta name="twitter:image:src" content="https://liz-barr.com{{ featured_image.url }}">
     {% elif featured_projects %}
-      {% with featured_projects|first as feat %}
-        <meta name="twitter:image:src" content="https://liz-barr.com{{ feat.project_image.url }}">
+      {% with featured_projects|first as prj %}
+        {% if prj.featured_image.large %}
+        <meta name="twitter:image:src" content="https://liz-barr.com{{ prj.featured_image.large.url }}">
+        {% else %}
+        <meta name="twitter:image:src" content="https://liz-barr.com{{ prj.featured_image.image.url }}">
+        {% endif %}
       {% endwith %}
     {% elif works %}
       {% with works|first as wrk %}
+        {% if wrk.large %}
+        <meta name="twitter:image:src" content="https://liz-barr.com{{ wrk.large.url }}">
+        {% else %}
         <meta name="twitter:image:src" content="https://liz-barr.com{{ wrk.image.url }}">
+        {% endif %}
       {% endwith %}
     {% endif %}
     {% if page.title %}
