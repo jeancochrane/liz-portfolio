@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from portfolio.models import Category, Project
+from portfolio.models import Category, Project, Exhibitions, Contact
 
 
 def universal_context(request):
@@ -11,6 +11,18 @@ def universal_context(request):
     }
     context['sidebar_projects'] = Project.objects.all()
 
+    # check to see if Exhibitions/Contact objects exist
+    try:
+        context['exhibitions'] = Exhibitions.objects.last()
+    except Exhibitions.DoesNotExist:
+        pass
+
+    try:
+        context['contact'] = Contact.objects.last()
+    except Contact.DoesNotExist:
+        pass
+
+    # Load projects for the sidebar
     sidebar_categories = [category for category in Category.objects.all()]
 
     for category in sidebar_categories:

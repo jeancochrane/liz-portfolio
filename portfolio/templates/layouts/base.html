@@ -154,16 +154,20 @@
                   <span>About Liz</span>
                 </div>
               </a>
+              {% if exhibitions %}
               <a href="{% url 'exhibitions' %}">
                 <div class="panel-body sidebar-child" id="exhibitions">
                   <span>Exhibitions</span>
                 </div>
               </a>
+              {% endif %}
+              {% if contact %}
               <a href="{% url 'contact' %}">
                 <div class="panel-body sidebar-child" id="contact">
                   <span>Contact</span>
                 </div>
               </a>
+              {% endif %}
             </div>
           </div>
           <a role="button" data-toggle="collapse" href="#design-content">
@@ -176,7 +180,7 @@
             {% for project in projects.design %}
             <a href="{% url 'work' project.slug %}">
               <div class="panel-body sidebar-child">
-                <span><strong>{{project.title}}</strong> ({{project.year}})</span>
+                <span>{{project.title}} ({{project.year}})</span>
               </div>
             </a>
             {% endfor %}
@@ -191,7 +195,7 @@
             {% for project in projects.zines %}
             <a href="{% url 'work' project.slug %}">
               <div class="panel-body sidebar-child">
-                <span><strong>{{project.title}}</strong> ({{project.year}})</span>
+                <span>{{project.title}} ({{project.year}})</span>
               </div>
             </a>
             {% endfor %}
@@ -206,7 +210,7 @@
             {% for project in projects.bodies %}
             <a href="{% url 'work' project.slug %}">
               <div class="panel-body sidebar-child">
-                <span><strong>{{project.title}}</strong> ({{project.year}})</span>
+                <span>{{project.title}} ({{project.year}})</span>
               </div>
             </a>
             {% endfor %}
@@ -221,7 +225,7 @@
             {% for project in projects.screens %}
             <a href="{% url 'work' project.slug %}">
               <div class="panel-body sidebar-child">
-                <span><strong>{{project.title}}</strong> ({{project.year}})</span>
+                <span>{{project.title}} ({{project.year}})</span>
               </div>
             </a>
             {% endfor %}
@@ -258,16 +262,20 @@
                     <span>About Liz</span>
                   </div>
                 </a>
+                {% if exhibitions %}
                 <a href="{% url 'exhibitions' %}">
                   <div class="panel-body sidebar-child" id="exhibitions-sidebar">
                     <span>Exhibitions</span>
                   </div>
                 </a>
+                {% endif %}
+                {% if contact %}
                 <a href="{% url 'contact' %}">
                   <div class="panel-body sidebar-child" id="contact-sidebar">
                     <span>Contact</span>
                   </div>
                 </a>
+                {% endif %}
               </div>
             </div>
             <a role="button" data-toggle="collapse" href="#design-content-sidebar" data-parent="#accordion">
@@ -280,7 +288,7 @@
               {% for project in projects.design %}
               <a href="{% url 'work' project.slug %}">
                 <div class="panel-body sidebar-child" id="{{ project.slug }}">
-                  <span><strong>{{project.title}}</strong> ({{project.year}})</span>
+                  <span>{{project.title}} ({{project.year}})</span>
                 </div>
               </a>
               {% endfor %}
@@ -295,7 +303,7 @@
               {% for project in projects.zines %}
               <a href="{% url 'work' project.slug %}">
                 <div class="panel-body sidebar-child" id="{{ project.slug }}">
-                  <span><strong>{{project.title}}</strong> ({{project.year}})</span>
+                  <span>{{project.title}} ({{project.year}})</span>
                 </div>
               </a>
               {% endfor %}
@@ -310,7 +318,7 @@
               {% for project in projects.bodies %}
               <a href="{% url 'work' project.slug %}">
                 <div class="panel-body sidebar-child" id="{{ project.slug }}">
-                  <span><strong>{{project.title}}</strong> ({{project.year}})</span>
+                  <span>{{project.title}} ({{project.year}})</span>
                 </div>
               </a>
               {% endfor %}
@@ -325,7 +333,7 @@
               {% for project in projects.screens %}
               <a href="{% url 'work' project.slug %}">
                 <div class="panel-body sidebar-child" id="{{ project.slug }}">
-                  <span><strong>{{project.title}}</strong> ({{project.year}})</span>
+                  <span>{{project.title}} ({{project.year}})</span>
                 </div>
               </a>
               {% endfor %}

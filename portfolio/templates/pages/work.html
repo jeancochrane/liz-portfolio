@@ -5,6 +5,10 @@
 <!-- Work grid -->
 <div class="work-content">
     <h3 class="text-center">{{ project.title }}</h3>
+    {% if not project.featured_image %}
+    <p class="text-center">{{ project.materials }}</h4>
+    <p class="text-center">{{ project.year }}</h4>
+    {% endif %}
     <br />
     {% if project.featured_image.large %}
     <img src="{{ project.featured_image.large.url }}"
@@ -22,10 +26,12 @@
     <img src="{{ project.featured_image.image.url }}" class="img-responsive center-block"></img>
     {% endif %}
     <br />
+    {% if project.featured_image %}
     <p><i><strong>{{ project.title }}</strong></i></p>
     <p>{{ project.materials }}</p>
     <p>{{ project.year }}</p>
     <br />
+    {% endif %}
     {% if project.statement %}
     <p>{{ project.statement|linebreaks }}</p>
     {% endif %}
