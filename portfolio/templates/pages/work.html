@@ -33,7 +33,9 @@
     <br />
     {% endif %}
     {% if project.statement %}
-    <p>{{ project.statement|linebreaks }}</p>
+        {% with statement=project.statement|safe %}
+        {{ statement|linebreaks }}
+        {% endwith %}
     {% endif %}
     <div class="grid">
         <div class="grid-sizer"></div>

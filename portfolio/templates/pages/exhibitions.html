@@ -12,6 +12,9 @@
         <br />
         <br />
         {% endif %}
+        {% with html=text|safe %}
+            {{ html|linebreaks }}
+        {% endwith %}
     </div>
 {% endblock %}
 

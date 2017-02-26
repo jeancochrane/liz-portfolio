@@ -31,7 +31,8 @@ class Contact(models.Model):
     name = "Contact"
     site = models.OneToOneField(Site)  # Can only be one
     featured_image = models.FileField(
-        upload_to='about/'
+        upload_to='about/',
+        blank=True
     )
     text = models.TextField()
 
@@ -49,7 +50,8 @@ class Exhibitions(models.Model):
     name = "Exhibitions"
     site = models.OneToOneField(Site)  # Can only be one
     featured_image = models.FileField(
-        upload_to='exhibitions/'
+        upload_to='exhibitions/',
+        blank=True
     )
     text = models.TextField()
 
