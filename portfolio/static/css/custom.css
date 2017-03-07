@@ -3,6 +3,12 @@ body {
     padding-top: 100px;
 }
 
+@media (max-width:756px) {
+    body {
+        padding-top: 75px;
+    }
+}
+
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', sans-serif;
@@ -37,13 +43,16 @@ p a {
     background-color: #f2dede;
     color: #2a2a2a;
     font-weight: 400;
-    padding: 3px;
     text-decoration: none;
 }
 
 a:hover, a:focus {
     text-decoration: none;
     color: #2a2a2a;
+}
+
+p a:hover, p a:focus {
+    background-color: #F7E9E9;
 }
 
 .navbar {
@@ -54,8 +63,10 @@ a:hover, a:focus {
     border-left: 1px solid #ddd;
 }
 
-.navbar-fixed-top {
-    padding-top: 30px;
+@media (min-width:756px) {
+    .navbar-fixed-top {
+        padding-top: 30px;
+    }
 }
 
 /* fix header background color */
@@ -99,12 +110,17 @@ a:hover, a:focus {
 
 .work-container {
     border-left: 1px solid #ddd;
-    padding-top: 15px;
     padding-bottom: 15px;
+    padding-top: 15px;
     height: 500px;
     overflow: scroll;
 }
 
+/*@media (min-width:756px) {
+    .work-container {
+        padding-top: 15px;
+    }
+}*/
 /* Set grid to 50% width */
 
 .grid-sizer,
