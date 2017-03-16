@@ -12,8 +12,10 @@
         <br />
         <br />
         {% endif %}
+        <h3>Selected Exhibitions</h3>
+        <br />
         {% with html=text|safe %}
-            {{ html|linebreaks }}
+            {{ html }}
         {% endwith %}
     </div>
 {% endblock %}

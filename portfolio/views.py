@@ -81,10 +81,11 @@ def exhibitions(request):
     }
     exhibitions = Exhibitions.objects.last()
 
-    if exhibitions.featured_image:
-        context["featured_image"] = exhibitions.featured_image
+    if exhibitions:
+        if exhibitions.featured_image:
+            context["featured_image"] = exhibitions.featured_image
 
-    context["text"] = exhibitions.text
+        context["text"] = exhibitions.text
 
     return render(request, 'exhibitions.html', context)
 

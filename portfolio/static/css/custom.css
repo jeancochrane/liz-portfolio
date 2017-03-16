@@ -51,6 +51,19 @@ a:hover, a:focus {
     color: #2a2a2a;
 }
 
+td a {
+    background-color: #f2dede;
+    color: #2a2a2a;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+td a:hover, td a:focus {
+    text-decoration: none;
+    background-color: #F7E9E9;
+    color: #2a2a2a;
+}
+
 p a:hover, p a:focus {
     background-color: #F7E9E9;
 }
@@ -116,11 +129,6 @@ p a:hover, p a:focus {
     overflow: scroll;
 }
 
-/*@media (min-width:756px) {
-    .work-container {
-        padding-top: 15px;
-    }
-}*/
 /* Set grid to 50% width */
 
 .grid-sizer,
@@ -162,4 +170,9 @@ p a:hover, p a:focus {
 .logout:hover,
 .logout:focus {
     background-color: #ffb347;
+}
+
+.no-borders > tbody > tr > td,
+.no-borders > tbody > tr > th {
+    border: none;
 }
