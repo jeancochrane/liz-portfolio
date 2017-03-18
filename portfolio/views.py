@@ -76,7 +76,7 @@ def contact(request):
 def exhibitions(request):
     context = {
         'page': {
-            'title': 'Exhibitions'
+            'title': 'Exhibitions & Press'
         }
     }
     exhibitions = Exhibitions.objects.last()
